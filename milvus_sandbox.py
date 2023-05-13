@@ -121,7 +121,7 @@ search_params = {
 }
 
 start_time = time.time()
-result = hello_milvus.search(vectors_to_search, "embeddings", search_params, limit=3, output_fields=["random"])
+result = hello_milvus.search(vectors_to_search, "mockFinanceData", search_params, limit=3, output_fields=["random"])
 end_time = time.time()
 
 for hits in result:
