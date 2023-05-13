@@ -47,10 +47,14 @@ print(f"Does collection hello_milvus exist in Milvus: {has}")
 # +-+------------+------------+------------------+------------------------------+
 # |3|"embeddings"| FloatVector|     dim=8        |  "float vector with dim 8"   |
 # +-+------------+------------+------------------+------------------------------+
+# |4|"mockFinanceData"| Double|     dim=8        |  "a double field"   |
+# +-+------------+------------+------------------+------------------------------+
+
 fields = [
     FieldSchema(name="pk", dtype=DataType.VARCHAR, is_primary=True, auto_id=False, max_length=100),
     FieldSchema(name="random", dtype=DataType.DOUBLE),
-    FieldSchema(name="embeddings", dtype=DataType.FLOAT_VECTOR, dim=dim)
+    FieldSchema(name="embeddings", dtype=DataType.FLOAT_VECTOR, dim=dim),
+    FieldSchema(name="mockFinanceData", dtype=DataType.DOUBLE, dim=dim)
 ]
 
 schema = CollectionSchema(fields, "hello_milvus is the simplest demo to introduce the APIs")
@@ -74,6 +78,7 @@ entities = [
     [str(i) for i in range(num_entities)],
     rng.random(num_entities).tolist(),  # field random, only supports list
     rng.random((num_entities, dim)),    # field embeddings, supports numpy.ndarray and list
+    rng.random(num_entities).tolist(),  # field mockFinanceData, only supports list
 ]
 
 insert_result = hello_milvus.insert(entities)
@@ -178,6 +183,3 @@ print(f"query after delete by expr=`{expr}` -> result: {result}\n")
 # Finally, drop the hello_milvus collection
 print(fmt.format("Drop collection `hello_milvus`"))
 utility.drop_collection("hello_milvus")
-
-if __name__ == '__main__':
-    print('Hello World')
